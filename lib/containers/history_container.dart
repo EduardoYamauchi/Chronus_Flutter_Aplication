@@ -17,6 +17,7 @@ class HourglassHistoryContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
+      distinct: true,
       builder: (context, vm) {
         return HistoryScreen(
           hourglasses: vm.hourglass,

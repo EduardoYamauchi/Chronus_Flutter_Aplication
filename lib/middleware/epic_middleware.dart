@@ -15,11 +15,11 @@ import 'package:chronus/models/user_data.dart';
 Firestore firestore = Firestore.instance;
 
 final allEpics = combineEpics<AppState>([
+  _getUserDataStream,
   _hourglassesStream,
   _tasksStream,
   _addHourglass,
   _addTask,
-  _getUserDataStream,
   _addUserDataBeforeLogin
 ]);
 

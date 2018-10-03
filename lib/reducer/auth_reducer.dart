@@ -4,8 +4,8 @@ import 'package:redux/redux.dart';
 import 'package:chronus/actions/actions.dart';
 
 final authReducer = combineReducers<FirebaseUser>([
-  new TypedReducer<FirebaseUser, GoogleLogInSuccessfulAction>(_logIn),
-  new TypedReducer<FirebaseUser, GoogleLogoutAction>(_logOut),
+   TypedReducer<FirebaseUser, GoogleLogInSuccessfulAction>(_logIn),
+   TypedReducer<FirebaseUser, GoogleLogoutAction>(_logOut),
 ]);
 
 FirebaseUser _logIn(FirebaseUser user, action) {

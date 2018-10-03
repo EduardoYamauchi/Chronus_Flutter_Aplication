@@ -1,18 +1,22 @@
 import 'dart:math' as math;
 
+import 'package:chronus/models/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'package:chronus/containers/daily_hourglass_number_container.dart';
 import 'package:chronus/containers/task_selected_container.dart';
 
 class TimerScreen extends StatefulWidget {
   final VoidCallback addHourglassAction;
   final VoidCallback setTimeStampAction;
+  final UserData userData;
 
   TimerScreen({
     Key key,
     this.addHourglassAction,
     this.setTimeStampAction,
+    this.userData,
   }) : super(key: key);
 
   @override
@@ -26,7 +30,6 @@ class TimerState extends State<TimerScreen> with TickerProviderStateMixin {
 
   var actualEvent;
   int pomodoroCounter = 1;
-  String projectName;
 
   static Duration pomodoroDuration = Duration(seconds: 10);
   static Color pomodoroColor = Colors.redAccent;
@@ -41,14 +44,14 @@ class TimerState extends State<TimerScreen> with TickerProviderStateMixin {
   }
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      new FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
     super.initState();
-    var android = new AndroidInitializationSettings('mipmap/ic_launcher');
-    var ios = new IOSInitializationSettings();
-    var platform = new InitializationSettings(android, ios);
+    var android = AndroidInitializationSettings('mipmap/ic_launcher');
+    var ios = IOSInitializationSettings();
+    var platform = InitializationSettings(android, ios);
     flutterLocalNotificationsPlugin.initialize(platform);
 
     actualEvent = ActualEvent.pomodoro;
@@ -99,11 +102,11 @@ class TimerState extends State<TimerScreen> with TickerProviderStateMixin {
   }
 
   showNotification(String message) async {
-    var android = new AndroidNotificationDetails(
+    var android = AndroidNotificationDetails(
         'CHANNEL ID', "CHANNEL NAME", "CHANNEL DESCRIPTION",
         importance: Importance.High);
-    var iOS = new IOSNotificationDetails();
-    var platform = new NotificationDetails(android, iOS);
+    var iOS = IOSNotificationDetails();
+    var platform = NotificationDetails(android, iOS);
 
     await flutterLocalNotificationsPlugin.show(
         0, "Breaktime", "$message", platform);
@@ -129,7 +132,7 @@ class TimerState extends State<TimerScreen> with TickerProviderStateMixin {
                         child: AnimatedBuilder(
                           animation: controller,
                           builder: (BuildContext context, Widget child) {
-                            return new CustomPaint(
+                            return CustomPaint(
                                 painter: TimerPainter(
                               animation: controller,
                               backgroundColor: Colors.white,
@@ -150,7 +153,7 @@ class TimerState extends State<TimerScreen> with TickerProviderStateMixin {
                             AnimatedBuilder(
                                 animation: controller,
                                 builder: (BuildContext context, Widget child) {
-                                  return new Text(
+                                  return Text(
                                     timerString,
                                     style: themeData.textTheme.display4,
                                   );
@@ -165,9 +168,12 @@ class TimerState extends State<TimerScreen> with TickerProviderStateMixin {
             ),
             Container(
               margin: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Column(
                 children: <Widget>[
+                  widget.userData == null
+                      ? CircularProgressIndicator()
+                      : DailyHourglassNumberContainer(),
+                  SizedBox(height: 15.0),
                   FloatingActionButton(
                     child: AnimatedBuilder(
                       animation: controller,
@@ -188,7 +194,7 @@ class TimerState extends State<TimerScreen> with TickerProviderStateMixin {
                                 : controller.value);
                       }
                     },
-                  )
+                  ),
                 ],
               ),
             )

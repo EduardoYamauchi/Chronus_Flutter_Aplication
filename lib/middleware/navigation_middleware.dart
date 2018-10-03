@@ -9,14 +9,14 @@ import 'package:chronus/models/app_state.dart';
 List<Middleware<AppState>> createNavigationMiddleware(GlobalKey<NavigatorState> navigatorKey) {
   final _pushToHome = pushToRouteMiddleware(navigatorKey);
 
-  return [new TypedMiddleware<AppState, NavigateToHomeAction>(_pushToHome)];
+  return [ TypedMiddleware<AppState, NavigateToHomeAction>(_pushToHome)];
 }
 
 Middleware<AppState> pushToRouteMiddleware(GlobalKey<NavigatorState> navigatorKey) {
   return (Store store, action, NextDispatcher next) async {
     next(action);
 
-    navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+    navigatorKey.currentState.push( MaterialPageRoute(builder: (context) {
       return MenuBarContainer();
     }));
   };

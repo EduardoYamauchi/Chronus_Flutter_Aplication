@@ -16,5 +16,3 @@ AppState appReducer(AppState state, action) {
       taskSelected: taskSelectedReducer(state.taskSelected, action),
       userData: userDataReducer(state.userData, action));
 }
-
-

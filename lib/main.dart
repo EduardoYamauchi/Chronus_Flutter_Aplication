@@ -12,7 +12,7 @@ import 'package:chronus/middleware/navigation_middleware.dart';
 import 'package:chronus/models/app_state.dart';
 import 'package:chronus/reducer/app_reducer.dart';
 
-final navigatorKey = new GlobalKey<NavigatorState>();
+final navigatorKey =  GlobalKey<NavigatorState>();
 
 void main() => runApp(Chronus());
 

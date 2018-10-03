@@ -12,10 +12,11 @@ class GoogleAuthButtonContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, _ViewModel>(
+    return  StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
+      distinct: true,
       builder: (BuildContext context, _ViewModel vm) {
-        return new GoogleAuthButton(
+        return  GoogleAuthButton(
           buttonText: vm.buttonText,
           googleLogInAction: vm.googleLogInAction,
         );
@@ -31,7 +32,7 @@ class _ViewModel {
   _ViewModel({this.googleLogInAction, this.buttonText});
 
   static _ViewModel fromStore(Store<AppState> store) {
-    return new _ViewModel(
-        googleLogInAction: () => store.dispatch(new GoogleLogInAction()));
+    return  _ViewModel(
+        googleLogInAction: () => store.dispatch( GoogleLogInAction()));
   }
 }

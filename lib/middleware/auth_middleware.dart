@@ -10,8 +10,8 @@ List<Middleware<AppState>> createAuthMiddleware() {
   final logOut = _createLogOutMiddleware();
 
   return [
-    new TypedMiddleware<AppState, GoogleLogInAction>(logIn),
-    new TypedMiddleware<AppState, GoogleLogoutAction>(logOut)
+     TypedMiddleware<AppState, GoogleLogInAction>(logIn),
+     TypedMiddleware<AppState, GoogleLogoutAction>(logOut)
   ];
 }
 
@@ -19,7 +19,7 @@ Middleware<AppState> _createLogInMiddleware() {
   return (Store store, action, NextDispatcher next) async {
     FirebaseUser user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
-    final GoogleSignIn _googleSignIn = new GoogleSignIn();
+    final GoogleSignIn _googleSignIn =  GoogleSignIn();
     if (action is GoogleLogInAction) {
       try {
         GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -28,11 +28,11 @@ Middleware<AppState> _createLogInMiddleware() {
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
-        store.dispatch(new NavigateToHomeAction());
-        store.dispatch(new GoogleLogInSuccessfulAction(user: user));
-        store.dispatch(new AddUserDataBeforeLoginAction(user: user));
+        store.dispatch( NavigateToHomeAction());
+        store.dispatch( GoogleLogInSuccessfulAction(user: user));
+        store.dispatch( AddUserDataBeforeLoginAction(user: user));
       } catch (error) {
-        store.dispatch(new GoogleLogInFailAction(error));
+        store.dispatch( GoogleLogInFailAction(error));
       }
     }
     next(action);
@@ -44,7 +44,7 @@ Middleware<AppState> _createLogOutMiddleware() {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       await _auth.signOut();
-      store.dispatch(new GoogleLogoutSuccessfulAction());
+      store.dispatch( GoogleLogoutSuccessfulAction());
     } catch (error) {
       print(error);
     }

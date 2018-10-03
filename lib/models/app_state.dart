@@ -30,7 +30,7 @@ class AppState {
       List<Hourglass> hourglasses,
       List<Task> tasks,
       UserData userData}) {
-    return new AppState(
+    return  AppState(
         ifLoading: ifLoading ?? this.ifLoading,
         currentUser: currentUser ?? this.currentUser,
         taskSelected: taskSelected ?? this.taskSelected,

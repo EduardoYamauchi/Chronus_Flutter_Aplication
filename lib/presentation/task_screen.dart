@@ -24,8 +24,8 @@ class TaskScreen extends StatefulWidget {
   _TaskScreenState createState() => _TaskScreenState();
 }
 
-final TextEditingController taskCreateName = new TextEditingController();
-final TextEditingController taskDescription = new TextEditingController();
+final TextEditingController taskCreateName =  TextEditingController();
+final TextEditingController taskDescription =  TextEditingController();
 
 class _TaskScreenState extends State<TaskScreen> {
   @override
@@ -95,13 +95,13 @@ void createTaskDialog(BuildContext context, Function addTaskAction) {
         children: <Widget>[
           TextField(
             controller: taskCreateName,
-            decoration: new InputDecoration(
-              labelText: 'Insert the name of your new task',
+            decoration:  InputDecoration(
+              labelText: 'Insert the name of your  task',
             ),
           ),
           TextField(
             controller: taskDescription,
-            decoration: new InputDecoration(
+            decoration:  InputDecoration(
               labelText: 'Description of the task',
             ),
           )

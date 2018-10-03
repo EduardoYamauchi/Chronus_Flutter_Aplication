@@ -11,8 +11,9 @@ class TaskSelectedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, _ViewModel>(
+    return  StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
+      distinct: true,
       builder: (BuildContext context, _ViewModel vm) {
         return TaskSelected(taskSelected: vm.taskSelected);
       },
@@ -24,7 +25,7 @@ class _ViewModel {
   final String taskSelected;
   _ViewModel({this.taskSelected});
   static _ViewModel fromStore(Store<AppState> store) {
-    return new _ViewModel(
+    return  _ViewModel(
       taskSelected: store.state.taskSelected,
     );
   }
